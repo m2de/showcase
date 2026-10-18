@@ -4,6 +4,7 @@ import { FORMATS } from "./kit/layout";
 import { DAY_ONE_FRAMES, DayOne } from "./stories/day-one/DayOne";
 import { SERIES } from "./stories/spaghettification/objects";
 import { Clip, timeline } from "./stories/spaghettification/Spaghettification";
+import { Faith, FAITH_FRAMES } from "./stories/spaghettification/Faith";
 
 const SLUGS = ["Dependency", "Memory", "Data", "FalseHorizon"];
 
@@ -19,6 +20,9 @@ export const Root: React.FC = () => (
         width={f.width}
         height={f.height}
       />
+    ))}
+    {FORMATS.map((f) => (
+      <Composition key={`faith-${f.suffix}`} id={`Faith-${f.suffix}`} component={Faith} durationInFrames={FAITH_FRAMES} fps={30} width={f.width} height={f.height} />
     ))}
     {SERIES.flatMap((sc, i) =>
       FORMATS.map((f) => (

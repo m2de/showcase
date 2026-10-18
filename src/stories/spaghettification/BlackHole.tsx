@@ -21,6 +21,7 @@ uniform vec2 centre;    // where the hole sits on screen, in uv units
 uniform float fov;
 uniform float heat;     // 0..1 how hot / bright the disk runs
 uniform float hueShift; // 0 ember, 1 violet
+uniform float clear;    // 1 = no stars, transparent around the hole so it can sit over a scene
 
 float hash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
 float noise(vec2 p) {
@@ -123,7 +124,7 @@ void main() {
     pos = np;
   }
 
-  if (!absorbed && alpha < 0.97) {
+  if (!absorbed && alpha < 0.97 && clear < 0.5) {
     col += stars(normalize(vel)) * (1.0 - alpha);
   }
   // Photon ring: a thin bright rim where rays skim r ≈ 1.5.
@@ -133,6 +134,11 @@ void main() {
   // Filmic-ish tone map and a touch of grain.
   col = 1.0 - exp(-col * 1.3);
   col = pow(col, vec3(0.92));
+  if (clear > 0.5) {
+    float a = absorbed ? 1.0 : clamp(max(col.r, max(col.g, col.b)) * 1.2, 0.0, 1.0);
+    gl_FragColor = vec4(col, a);
+    return;
+  }
   col += (hash(gl_FragCoord.xy + time) - 0.5) * 0.025;
   gl_FragColor = vec4(col, 1.0);
 }
@@ -146,19 +152,20 @@ export type HoleView = {
   fov?: number;
   heat?: number;
   hueShift?: number;
+  clear?: boolean;
 };
 
 // Drawn at a fraction of the output size and scaled up: the disk is all glow, so nobody can tell,
 // and software WebGL in a headless render is the slow part of every frame.
 const SCALE = 0.5;
 
-export const BlackHole: React.FC<{ view: HoleView; t?: number }> = ({ view, t }) => {
+export const BlackHole: React.FC<{ view: HoleView; t?: number; size?: { w: number; h: number }; scale?: number }> = ({ view, t, size, scale = SCALE }) => {
   const ref = useRef<HTMLCanvasElement>(null);
   const frame = useCurrentFrame();
   const { width, height, fps } = useVideoConfig();
   const glRef = useRef<{ gl: WebGLRenderingContext; prog: WebGLProgram } | null>(null);
-  const w = Math.round(width * SCALE);
-  const h = Math.round(height * SCALE);
+  const w = Math.round((size?.w ?? width) * scale);
+  const h = Math.round((size?.h ?? height) * scale);
 
   useLayoutEffect(() => {
     const canvas = ref.current;
@@ -198,6 +205,9 @@ export const BlackHole: React.FC<{ view: HoleView; t?: number }> = ({ view, t })
     gl.uniform1f(u("fov"), view.fov ?? 1);
     gl.uniform1f(u("heat"), view.heat ?? 0.6);
     gl.uniform1f(u("hueShift"), view.hueShift ?? 0);
+    gl.uniform1f(u("clear"), view.clear ? 1 : 0);
+    gl.clearColor(0, 0, 0, 0);
+    gl.clear(gl.COLOR_BUFFER_BIT);
     gl.drawArrays(gl.TRIANGLES, 0, 3);
     gl.finish();
   });

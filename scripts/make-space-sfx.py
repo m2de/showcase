@@ -107,6 +107,17 @@ def glitch():
     save("glitch", norm(sq * chop * np.exp(-x * 6), 0.25))
 
 
-for fn in (drone, boom, whoosh, stretch, ping, glitch):
+# Tape being dragged backwards: a rising, wobbling tone over hiss.
+def rewind():
+    x = t(1.1)
+    f = 120 + 900 * (x / 1.1) ** 2
+    phase = 2 * np.pi * np.cumsum(f * (1 + 0.08 * np.sin(2 * np.pi * 13 * x))) / SR
+    tone = np.sign(np.sin(phase)) * 0.25 + np.sin(phase * 0.5) * 0.4
+    hiss = band(rng.standard_normal(len(x)), 1500, 7000) * 0.4
+    env = np.minimum(1, x / 0.05) * np.minimum(1, (1.1 - x) / 0.1)
+    save("rewind", norm((tone + hiss) * env, 0.4))
+
+
+for fn in (drone, boom, whoosh, stretch, ping, glitch, rewind):
     fn()
 print("written to", OUT)
