@@ -1,0 +1,21 @@
+{
+  "name": "showcase",
+  "private": true,
+  "description": "Animated stories for social posts, built with Remotion",
+  "scripts": {
+    "dev": "remotion studio",
+    "render": "remotion render src/index.ts DayOne-Vertical out/day-one-vertical.mp4 && remotion render src/index.ts DayOne-Landscape out/day-one-landscape.mp4",
+    "still": "remotion still src/index.ts DayOne-Landscape out/day-one-still.png --frame=620",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@remotion/cli": "^4.0.536",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "remotion": "^4.0.536"
+  },
+  "devDependencies": {
+    "@types/react": "^19.3.0",
+    "typescript": "^7.0.2"
+  }
+}
