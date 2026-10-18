@@ -1,4 +1,5 @@
 import React from "react";
+import { useUnit } from "../../kit/layout";
 import {
   AbsoluteFill,
   continueRender,
@@ -9,7 +10,7 @@ import {
   useVideoConfig,
 } from "remotion";
 
-// Same palette as the Ceefax homepage on marcomark.co.uk, so every video reads as part of the site.
+// The Ceefax look from the marcomark.co.uk homepage. It belongs to this story, not to the repo.
 export const C = {
   black: "#000000",
   red: "#ff0000",
@@ -27,25 +28,13 @@ export const FONT = "'IBM Plex Mono', monospace";
 const fontHandle = delayRender("Loading IBM Plex Mono");
 Promise.all(
   [400, 700].map((weight) =>
-    new FontFace("IBM Plex Mono", `url(${staticFile(`fonts/ibm-plex-mono-latin-${weight}-normal.woff2`)})`, {
+    new FontFace("IBM Plex Mono", `url(${staticFile(`fonts/ibm-plex-mono/ibm-plex-mono-latin-${weight}-normal.woff2`)})`, {
       weight: String(weight),
     })
       .load()
       .then((f) => document.fonts.add(f)),
   ),
 ).then(() => continueRender(fontHandle));
-
-// A "unit" scales with the shorter side so the same scene works in 9:16 and 16:9.
-export const useUnit = () => {
-  const { width, height } = useVideoConfig();
-  // Phones have height to spare, so vertical text runs a little larger.
-  return (Math.min(width, height) / 100) * (height > width ? 1.2 : 1);
-};
-
-export const useIsVertical = () => {
-  const { width, height } = useVideoConfig();
-  return height > width;
-};
 
 const Scanlines: React.FC = () => (
   <AbsoluteFill

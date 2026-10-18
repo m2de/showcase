@@ -1,6 +1,7 @@
 import React from "react";
 import { AbsoluteFill, interpolate, Sequence, spring, useCurrentFrame, useVideoConfig } from "remotion";
-import { Band, C, FONT, PopIn, Screen, Typed, useIsVertical, useUnit } from "../../kit/teletext";
+import { useIsVertical, useUnit } from "../../kit/layout";
+import { Band, C, FONT, PopIn, Screen, Typed } from "./ceefax";
 
 // Words are Marco's, from draft 2 in social/x-playbook.md and the post at
 // marcomark.co.uk/blog/every-session-is-day-one.html. Change them there first.
