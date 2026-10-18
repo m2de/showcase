@@ -10,9 +10,9 @@ Anything committed here can be read by anyone. Nothing about employers, clients,
 
 Like marcomark.co.uk, every story gets its own look, chosen to suit what it's saying. Retro computing, 80s/90s, surf and tiki, clean Swiss, something new: all fair game. Don't reuse a previous story's look by default, and don't promote one into `src/kit/`. The kit holds only style-free helpers (sizing, formats). If a new story genuinely wants an existing look, import it from that story's folder on purpose.
 
-## Never invent content
+## Marco's ideas, your craft
 
-Design, motion and pacing are yours. The words aren't. Use lines from Marco's blog posts, his drafts, or what he gives you, and name the source in the story's header comment. If you need words you don't have, ask.
+Treat what Marco gives you as guidance, not a script. Work out why the idea matters and where it lands hardest, then shape the words, pacing and visuals to fit. Rewrite, cut and tighten freely. What you can't do is invent opinions, facts or experiences he hasn't had: the substance comes from his posts, drafts or messages, and the story's header comment names the source.
 
 ## Workflow
 
