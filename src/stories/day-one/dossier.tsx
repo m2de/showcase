@@ -87,30 +87,32 @@ export const Desk: React.FC = () => {
           repeating-linear-gradient(90deg, rgba(255,255,255,0.035) 0 1px, transparent 1px 3px)`,
       }}
     >
-      <Grain opacity={0.22} seed={frame % 6} />
+      <Grain opacity={0.22} texture={`film-${frame % 6}`} />
       <AbsoluteFill style={{ background: "radial-gradient(ellipse at center, transparent 45%, rgba(0,0,0,0.55) 100%)" }} />
     </AbsoluteFill>
   );
 };
 
-// Fractal noise, used for paper fibre and for film grain.
-export const Grain: React.FC<{ opacity: number; seed?: number; freq?: number; blend?: React.CSSProperties["mixBlendMode"] }> = ({
+// Baked noise tiles (scripts/make-textures.py), used for paper fibre and for film grain.
+export const Grain: React.FC<{ opacity: number; texture: string; blend?: React.CSSProperties["mixBlendMode"]; offset?: number }> = ({
   opacity,
-  seed = 1,
-  freq = 0.85,
+  texture,
   blend = "multiply",
-}) => {
-  const id = `grain-${seed}-${String(freq).replace(".", "")}`;
-  return (
-    <svg style={{ position: "absolute", inset: 0, width: "100%", height: "100%", opacity, mixBlendMode: blend, pointerEvents: "none" }}>
-      <filter id={id}>
-        <feTurbulence type="fractalNoise" baseFrequency={freq} numOctaves={3} seed={seed} stitchTiles="stitch" />
-        <feColorMatrix type="saturate" values="0" />
-      </filter>
-      <rect width="100%" height="100%" filter={`url(#${id})`} />
-    </svg>
-  );
-};
+  offset = 0,
+}) => (
+  <div
+    style={{
+      position: "absolute",
+      inset: 0,
+      opacity,
+      mixBlendMode: blend,
+      pointerEvents: "none",
+      backgroundImage: `url(${staticFile(`textures/${texture}.png`)})`,
+      backgroundSize: "512px 512px",
+      backgroundPosition: `${(offset * 97) % 512}px ${(offset * 53) % 512}px`,
+    }}
+  />
+);
 
 // ---------- paper ----------
 
@@ -142,7 +144,7 @@ export const Sheet: React.FC<{
       color: P.ink,
     }}
   >
-    <Grain opacity={0.2} seed={seed} />
+    <Grain opacity={0.13} texture="paper" offset={seed} />
     {/* Age stains and a faint fold, so no two sheets look printed yesterday. */}
     <div
       style={{

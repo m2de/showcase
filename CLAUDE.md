@@ -18,8 +18,8 @@ Design, motion and pacing are yours. The words aren't. Use lines from Marco's bl
 
 - One folder per story in `src/stories/`, registered in `src/Root.tsx` in both formats (9:16 and 16:9).
 - Check stills of a few key frames in both shapes before rendering the whole thing; vertical is where things overflow.
-- Render to `renders/<story>/` (`vertical.mp4`, `landscape.mp4`, `still.png`) and commit them, then add a row to the README's Watch table.
-- Keep each MP4 small (a few MB). If renders/ ever gets large, move videos to GitHub Releases instead.
+- Render full quality to `out/` (gitignored), then commit 720p previews to `renders/<story>/` (`vertical.mp4`, `landscape.mp4`, `still.jpg`) at a few MB each, and add a row to the README's Watch table.
+- Renders are slow on 4 cores. Avoid per-frame SVG filters (feTurbulence on every sheet made a 60s render crawl); bake textures into PNGs instead.
 - Bundle fonts in `public/fonts/<font>/` with their licence. Never load fonts from a CDN at render time.
 - `npm run typecheck` must pass.
 

@@ -119,7 +119,7 @@ const Record: React.FC<{ exitAt: number }> = ({ exitAt }) => {
         <At x={120} y={672} style={{ fontFamily: F.mono, fontSize: 20, letterSpacing: "0.22em", color: P.khakiText }}>
           <Typed text="OPINION. 7 SEPTEMBER 2026. MARCO MARK." at={100} cps={60} sound={false} />
         </At>
-        <Stamp text="Valid 30 Secs" at={118} x={755} y={150} size={52} rotate={-12} />
+        <Stamp text="Valid 30 Secs" at={118} x={735} y={155} size={52} rotate={-12} />
         <At x={110} y={800} w={790} style={serif(42, { fontStyle: "italic", fontWeight: 600 })}>
           <Typed
             text="Agent readiness has nothing to do with prompting, context or which model you picked. It's an onboarding problem, and the induction now happens fifty times a day."
@@ -420,7 +420,7 @@ const Withheld: React.FC<{ exitAt: number }> = ({ exitAt }) => {
         <At x={110} y={1060} w={800} style={serif(46, { fontWeight: 600 })}>
           <Typed text="None of it is available." at={188} cps={40} />
         </At>
-        <Stamp text="Tacit knowledge: not supplied" at={stampAt} x={500} y={1210} size={46} rotate={4} />
+        <Stamp text="Tacit knowledge: not supplied" at={stampAt} x={500} y={1210} size={38} rotate={4} />
       </Arriving>
     </World>
   );
@@ -631,7 +631,7 @@ export const DAY_ONE_FRAMES = starts[starts.length - 1] + SCENES[SCENES.length -
 
 const FilmGrain: React.FC = () => {
   const frame = useCurrentFrame();
-  return <Grain opacity={0.07} seed={frame % 9} freq={0.9} blend="overlay" />;
+  return <Grain opacity={0.08} texture={`film-${(frame * 7) % 6}`} blend="overlay" />;
 };
 
 export const DayOne: React.FC = () => {
