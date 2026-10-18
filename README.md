@@ -36,7 +36,7 @@ Remotion downloads its own headless Chrome the first time you render.
 - `src/Root.tsx` registers each story in 9:16 (phones) and 16:9 (desktop timeline)
 - `public/fonts/` fonts bundled so renders never depend on a font CDN, each with its licence
 - `renders/` smaller preview copies of each video (720p, a few MB), committed so they're easy to watch. Full-quality files come from `npm run render`
-- `src/stories/spaghettification/` a four-part series, one clip per black hole in the post. The black hole is a real ray-traced WebGL shader (`BlackHole.tsx`), so renders need `--gl=swangle` in a headless container
+- `src/stories/spaghettification/` a four-part series, one clip per black hole in the post. The same character runs through all four: a probe that can only see what its torch lights (`probe.tsx`). The black hole in part one is a ray-traced WebGL shader (`BlackHole.tsx`), so renders need `--gl=swangle` in a headless container
 - `scripts/` generators for the sound effects and paper textures, so there are no samples or stock images to license
 
 ## Licences

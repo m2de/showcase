@@ -2,11 +2,18 @@ import React from "react";
 import { Composition } from "remotion";
 import { FORMATS } from "./kit/layout";
 import { DAY_ONE_FRAMES, DayOne } from "./stories/day-one/DayOne";
-import { SERIES } from "./stories/spaghettification/objects";
-import { Clip, timeline } from "./stories/spaghettification/Spaghettification";
 import { Faith, FAITH_FRAMES } from "./stories/spaghettification/Faith";
+import { Nebula, NEBULA_FRAMES } from "./stories/spaghettification/Nebula";
+import { Void, VOID_FRAMES } from "./stories/spaghettification/Void";
+import { Horizon, HORIZON_FRAMES } from "./stories/spaghettification/Horizon";
 
-const SLUGS = ["Dependency", "Memory", "Data", "FalseHorizon"];
+// Spaghettification, one clip per black hole in the post.
+const SPAGHETTI: [string, React.FC, number][] = [
+  ["Faith", Faith, FAITH_FRAMES],
+  ["Nebula", Nebula, NEBULA_FRAMES],
+  ["Void", Void, VOID_FRAMES],
+  ["Horizon", Horizon, HORIZON_FRAMES],
+];
 
 export const Root: React.FC = () => (
   <>
@@ -21,21 +28,9 @@ export const Root: React.FC = () => (
         height={f.height}
       />
     ))}
-    {FORMATS.map((f) => (
-      <Composition key={`faith-${f.suffix}`} id={`Faith-${f.suffix}`} component={Faith} durationInFrames={FAITH_FRAMES} fps={30} width={f.width} height={f.height} />
-    ))}
-    {SERIES.flatMap((sc, i) =>
+    {SPAGHETTI.flatMap(([id, component, frames]) =>
       FORMATS.map((f) => (
-        <Composition
-          key={`${i}-${f.suffix}`}
-          id={`Spaghetti${String(sc.n).padStart(2, "0")}${SLUGS[i]}-${f.suffix}`}
-          component={Clip}
-          defaultProps={{ index: i }}
-          durationInFrames={timeline(sc).total}
-          fps={30}
-          width={f.width}
-          height={f.height}
-        />
+        <Composition key={`${id}-${f.suffix}`} id={`${id}-${f.suffix}`} component={component} durationInFrames={frames} fps={30} width={f.width} height={f.height} />
       )),
     )}
   </>
