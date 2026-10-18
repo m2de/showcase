@@ -4,9 +4,11 @@
   "description": "Animated stories for social posts, built with Remotion",
   "scripts": {
     "dev": "remotion studio",
-    "render": "remotion render src/index.ts DayOne-Vertical renders/day-one/vertical.mp4 && remotion render src/index.ts DayOne-Landscape renders/day-one/landscape.mp4",
-    "still": "remotion still src/index.ts DayOne-Landscape renders/day-one/still.png --frame=620",
-    "typecheck": "tsc --noEmit"
+    "render": "remotion render src/index.ts DayOne-Vertical out/day-one-vertical.mp4 && remotion render src/index.ts DayOne-Landscape out/day-one-landscape.mp4",
+    "still": "remotion still src/index.ts DayOne-Landscape out/day-one-still.png --frame=1790",
+    "typecheck": "tsc --noEmit",
+    "textures": "python3 scripts/make-textures.py",
+    "sfx": "python3 scripts/make-sfx.py"
   },
   "dependencies": {
     "@remotion/cli": "^4.0.536",
