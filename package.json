@@ -8,7 +8,9 @@
     "still": "remotion still src/index.ts DayOne-Landscape out/day-one-still.png --frame=1790",
     "typecheck": "tsc --noEmit",
     "textures": "python3 scripts/make-textures.py",
-    "sfx": "python3 scripts/make-sfx.py"
+    "sfx": "python3 scripts/make-sfx.py",
+    "render:spaghetti": "for c in Faith Nebula Void Horizon; do for f in Vertical Landscape; do remotion render src/index.ts $c-$f out/spaghetti-$c-$f.mp4 --gl=swangle --concurrency=4 || exit 1; done; done",
+    "sfx:space": "python3 scripts/make-space-sfx.py"
   },
   "dependencies": {
     "@remotion/cli": "^4.0.536",
