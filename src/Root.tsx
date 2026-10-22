@@ -6,6 +6,7 @@ import { Faith, FAITH_FRAMES } from "./stories/spaghettification/Faith";
 import { Nebula, NEBULA_FRAMES } from "./stories/spaghettification/Nebula";
 import { Void, VOID_FRAMES } from "./stories/spaghettification/Void";
 import { Horizon, HORIZON_FRAMES } from "./stories/spaghettification/Horizon";
+import { RED_RUN_FRAMES, RedRun } from "./stories/red-run/RedRun";
 
 // Spaghettification, one clip per black hole in the post.
 const SPAGHETTI: [string, React.FC, number][] = [
@@ -33,5 +34,8 @@ export const Root: React.FC = () => (
         <Composition key={`${id}-${f.suffix}`} id={`${id}-${f.suffix}`} component={component} durationInFrames={frames} fps={30} width={f.width} height={f.height} />
       )),
     )}
+    {FORMATS.map((f) => (
+      <Composition key={`RedRun-${f.suffix}`} id={`RedRun-${f.suffix}`} component={RedRun} durationInFrames={RED_RUN_FRAMES} fps={30} width={f.width} height={f.height} />
+    ))}
   </>
 );
