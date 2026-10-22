@@ -10,7 +10,9 @@
     "textures": "python3 scripts/make-textures.py",
     "sfx": "python3 scripts/make-sfx.py",
     "render:spaghetti": "for c in Faith Nebula Void Horizon; do for f in Vertical Landscape; do remotion render src/index.ts $c-$f out/spaghetti-$c-$f.mp4 --gl=swangle --concurrency=4 || exit 1; done; done",
-    "sfx:space": "python3 scripts/make-space-sfx.py"
+    "sfx:space": "python3 scripts/make-space-sfx.py",
+    "render:red-run": "for f in Vertical Landscape; do remotion render src/index.ts RedRun-$f out/red-run-$f.mp4 --concurrency=4 || exit 1; done",
+    "sfx:red-run": "python3 scripts/make-red-run-sfx.py"
   },
   "dependencies": {
     "@remotion/cli": "^4.0.536",
